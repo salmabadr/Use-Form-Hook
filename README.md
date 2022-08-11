@@ -33,3 +33,6 @@ It should open automatically in your default browser,
 In case it didn't, Open http://localhost:3000 to view it in the browser.
 
 ## Notes
+
+- As there's the "required" option, it is assumed there won't be a validation check for whether there's value or not. otherwise, 2 errors will be shown with the same error message. (Possible enhancement: required option to make submit button disabled).
+- Adding an alert for submitting successfully for clarification.

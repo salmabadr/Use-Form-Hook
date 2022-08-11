@@ -13,3 +13,5 @@ export type registerFieldOptions = {
   required?: boolean;
   validate?: Function;
 };
+
+export const EMAIL_REGEX = /\S+@\S+\.\S+/;

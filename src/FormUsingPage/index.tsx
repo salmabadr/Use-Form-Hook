@@ -1,6 +1,7 @@
 import React from 'react';
 import './FormUsingPage.css';
 import useForm from '../appHooks/useForm';
+import { EMAIL_REGEX } from "../constants";
 
 export default function FormUsingPage() {
     const { state, reset, errors, registerField } = useForm({ email: '', name: '' })
@@ -14,8 +15,8 @@ export default function FormUsingPage() {
                 type="email"
                 {...registerField('email', {
                     validate: (value: string) => {
-                        if (!value) {
-                            return 'Email is required'
+                        if (!EMAIL_REGEX.test(value)) {
+                            return 'Invalid Email'
                         }
                         return true
                     },

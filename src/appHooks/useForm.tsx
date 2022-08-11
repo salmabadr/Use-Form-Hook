@@ -1,5 +1,10 @@
 import { useEffect, useReducer, useState } from "react";
-import { registerFieldOptions, useFormObject, genericObject } from "../constants";
+import {
+    registerFieldOptions,
+    useFormObject,
+    genericObject,
+    ACTION_TYPES,
+} from "../constants";
 import { checkValidations } from "../helperFunctions";
 
 export default function useForm(initialState: any = {}): useFormObject {
@@ -9,12 +14,14 @@ export default function useForm(initialState: any = {}): useFormObject {
 
     function reducer(reducerState: genericObject, action: genericObject) {
         switch (action.type) {
-            case "UpdateValue":
+            case ACTION_TYPES.UPDATE_VALUE:
                 setErrors({ ...errors, [action.payload.name]: undefined })
                 reducerState[action.payload.name] = action.payload.value;
                 return { ...reducerState }
-            case "Reset":
+
+            case ACTION_TYPES.RESET_VALUES:
                 return { ...initialState }
+
             default:
                 return { ...reducerState }
         }
@@ -24,12 +31,12 @@ export default function useForm(initialState: any = {}): useFormObject {
 
 
     const reset = () => dispatch({
-        type: "Reset"
+        type: ACTION_TYPES.RESET_VALUES
     })
 
     const handleOnChange = (e: genericObject) =>
         dispatch({
-            type: "UpdateValue", payload: {
+            type: ACTION_TYPES.UPDATE_VALUE, payload: {
                 value: e.target.value,
                 name: e.target.name,
             }

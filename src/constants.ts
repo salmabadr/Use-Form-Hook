@@ -15,3 +15,11 @@ export type registerFieldOptions = {
 };
 
 export const EMAIL_REGEX = /\S+@\S+\.\S+/;
+export const IS_REQUIRED_MSG = " is required";
+export const INVALID_EMAIL_MSG = "Email is invalid";
+export const SUCCESSFULL_SUBMISSION = "Form Submitted Successfully!";
+
+export const ACTION_TYPES = {
+  UPDATE_VALUE: "UPDATE_VALUE",
+  RESET_VALUES: "RESET_VALUES",
+};

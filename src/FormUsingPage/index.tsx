@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import './FormUsingPage.css';
 import useForm from '../appHooks/useForm';
-import { EMAIL_REGEX } from "../constants";
+import { isEmpty } from "../helperFunctions";
+import {
+    EMAIL_REGEX,
+    INVALID_EMAIL_MSG,
+    SUCCESSFULL_SUBMISSION,
+} from "../constants";
 
 export default function FormUsingPage() {
     const { state, reset, errors, registerField } = useForm({ email: '', name: '' })
@@ -10,7 +15,12 @@ export default function FormUsingPage() {
 
     const handleSubmit = () => {
         setShowErrors(true);
-        // use state object for accessing data
+        if (isEmpty(errors)) alert(SUCCESSFULL_SUBMISSION) // can access state here
+    }
+
+    const handleReset = () => {
+        setShowErrors(false);
+        reset();
     }
 
     return (
@@ -26,7 +36,12 @@ export default function FormUsingPage() {
                         {errors.name ?
                             errors.name.map((
                                 errorMsg: string, index: number
-                            ) => <article key={`name-err-${index}`} className="error-msg">{errorMsg}</article>)
+                            ) => <article
+                                key={`name-err-${index}`}
+                                className="error-msg">
+                                    {errorMsg}
+                                </article>
+                            )
                             : <></>}
                     </>
                 }
@@ -39,7 +54,7 @@ export default function FormUsingPage() {
                     {...registerField('email', {
                         validate: (value: string) => {
                             if (!EMAIL_REGEX.test(value)) {
-                                return 'Invalid Email'
+                                return INVALID_EMAIL_MSG;
                             }
                             return true
                         },
@@ -51,14 +66,19 @@ export default function FormUsingPage() {
                         {errors.email ?
                             errors.email.map((
                                 errorMsg: string, index: number
-                            ) => <article key={`email-err-${index}`} className="error-msg">{errorMsg}</article>)
+                            ) => <article
+                                key={`email-err-${index}`}
+                                className="error-msg">
+                                    {errorMsg}
+                                </article>
+                            )
                             : <></>}
                     </>
                 }
             </fieldset>
 
             <fieldset className="form-buttons">
-                <button className="reset-button" onClick={() => reset()}>Reset</button>
+                <button className="reset-button" onClick={handleReset}>Reset</button>
                 <button className="submit-button" onClick={handleSubmit}>Submit</button>
             </fieldset>
         </div>

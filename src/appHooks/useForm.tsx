@@ -1,16 +1,20 @@
-import { useReducer, useEffect } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { registerFieldOptions, useFormObject, genericObject } from "../constants";
 import { checkValidations } from "../helperFunctions";
 
 export default function useForm(initialState: any = {}): useFormObject {
+
     const options: any = {}
-    let errors: genericObject = {}
+    let [errors, setErrors] = useState({})
 
     function reducer(reducerState: genericObject, action: genericObject) {
         switch (action.type) {
             case "UpdateValue":
+                setErrors({ ...errors, [action.payload.name]: undefined })
                 reducerState[action.payload.name] = action.payload.value;
                 return { ...reducerState }
+            case "Reset":
+                return { ...initialState }
             default:
                 return { ...reducerState }
         }
@@ -18,7 +22,10 @@ export default function useForm(initialState: any = {}): useFormObject {
 
     const [state, dispatch]: any = useReducer(reducer, initialState);
 
-    const reset = () => { }
+
+    const reset = () => dispatch({
+        type: "Reset"
+    })
 
     const handleOnChange = (e: genericObject) =>
         dispatch({
@@ -30,7 +37,7 @@ export default function useForm(initialState: any = {}): useFormObject {
 
     useEffect(() => {
         const newErrors = checkValidations(options, state);
-        errors = { ...errors, newErrors }
+        setErrors({ ...errors, ...newErrors });
     }, [state])
 
     const registerField = (name: string, registerFieldOptions?: registerFieldOptions) => {

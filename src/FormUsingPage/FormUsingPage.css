@@ -1,0 +1,53 @@
+fieldset {
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+label,
+input {
+  font-size: 30px;
+}
+
+input {
+  border: 3px solid #d8d8d8;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.form-buttons {
+  flex-direction: row;
+}
+
+.reset-button,
+.submit-button {
+  border: none;
+  width: 120px;
+  height: 65px;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.reset-button:hover,
+.submit-button:hover {
+  cursor: pointer;
+}
+
+.reset-button {
+  background-color: #ffd700;
+  margin-right: auto;
+}
+
+.submit-button {
+  background-color: #6a5acd;
+  margin-left: auto;
+}
+
+.error-msg {
+  color: #cc0000;
+}

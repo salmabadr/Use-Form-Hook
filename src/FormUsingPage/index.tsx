@@ -10,10 +10,11 @@ export default function FormUsingPage() {
 
     const handleSubmit = () => {
         setShowErrors(true);
+        // use state object for accessing data
     }
 
     return (
-        <div>
+        <div className="container">
             <h1>Form Using Page</h1>
 
             <fieldset>
@@ -21,7 +22,13 @@ export default function FormUsingPage() {
                 <input
                     type="text" {...registerField('name', { required: true })} />
                 {showErrors &&
-                    <>{errors.name ? errors.name.map((errorMsg: string) => <article>{errorMsg}</article>) : <></>}</>
+                    <>
+                        {errors.name ?
+                            errors.name.map((
+                                errorMsg: string, index: number
+                            ) => <article key={`name-err-${index}`} className="error-msg">{errorMsg}</article>)
+                            : <></>}
+                    </>
                 }
             </fieldset>
 
@@ -40,13 +47,19 @@ export default function FormUsingPage() {
                     })}
                 />
                 {showErrors &&
-                    <>{errors.email ? errors.email.map((errorMsg: string) => <article>{errorMsg}</article>) : <></>}</>
+                    <>
+                        {errors.email ?
+                            errors.email.map((
+                                errorMsg: string, index: number
+                            ) => <article key={`email-err-${index}`} className="error-msg">{errorMsg}</article>)
+                            : <></>}
+                    </>
                 }
             </fieldset>
 
-            <fieldset>
-                <button onClick={() => reset()}>Reset</button>
-                <button onClick={handleSubmit}>Submit</button>
+            <fieldset className="form-buttons">
+                <button className="reset-button" onClick={() => reset()}>Reset</button>
+                <button className="submit-button" onClick={handleSubmit}>Submit</button>
             </fieldset>
         </div>
     )

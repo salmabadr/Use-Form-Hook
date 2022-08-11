@@ -14,6 +14,7 @@ useForm Hook that have some options to alter the form with usage example in the 
 ## Languages and technologies used
 
 - ReactJS v18.2.0
+- TypeScript v4.7.4
 - NPM v8.14.0
 - HTML
 - CSS
